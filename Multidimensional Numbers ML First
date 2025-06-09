@@ -1,0 +1,59 @@
+class MultidimensionalNumber:
+    def __init__(self, value, dimension):
+        self.value = value          # numeric
+        self.dimension = dimension  # dimention
+    def __repr__(self):
+        return f"{self.value} ({self.dimension})"
+ 
+row = [
+    MultidimensionalNumber(350, "kg/m³ cement"),
+    MultidimensionalNumber(180, "kg/m³ water"),
+    MultidimensionalNumber(70, "USD/m³ cost"),
+    MultidimensionalNumber(250, "kg CO₂/m³ emission"),
+    MultidimensionalNumber(45, "MPa strength")  # target
+]
+
+
+for feature in row:
+    print(feature)
+    
+dataset = [
+    [
+        MultidimensionalNumber(350, "kg/m³ cement"),
+        MultidimensionalNumber(180, "kg/m³ water"),
+        MultidimensionalNumber(70, "USD/m³ cost"),
+        MultidimensionalNumber(250, "kg CO₂/m³ emission"),
+        MultidimensionalNumber(45, "MPa strength") # target
+    ],
+    [
+        MultidimensionalNumber(400, "kg/m³ cement"),
+        MultidimensionalNumber(160, "kg/m³ water"),
+        MultidimensionalNumber(80, "USD/m³ cost"),
+        MultidimensionalNumber(270, "kg CO₂/m³ emission"),
+        MultidimensionalNumber(48, "MPa strength")
+    ]
+]
+
+
+X = []
+y = []
+for row in dataset:
+    
+    X.append([f.value for f in row[:-1]])
+   
+    y.append(row[-1].value)
+
+print("Feature matrix (X):", X)
+print("Target vector (y):", y)
+
+def add_multidimensional(a, b):
+    if a.dimension == b.dimension:
+        return MultidimensionalNumber(a.value + b.value, a.dimension)
+    else:
+        raise ValueError("Dimensions are not compatible for addition.")
+
+# مثال:
+cement1 = MultidimensionalNumber(200, "kg/m³ cement")
+cement2 = MultidimensionalNumber(150, "kg/m³ cement")
+result = add_multidimensional(cement1, cement2)
+print(result)  # Output: 350 (kg/m³ cement)
